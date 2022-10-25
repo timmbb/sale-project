@@ -12,12 +12,12 @@ public class DatabaseAccess extends HttpServlet{
 
 	 // JDBC �����������ݿ� URL
     static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
-    static final String DB_URL = "jdbc:mysql://localhost:3306/coursework3?&useSSL=false&serverTimezone=UTC";
+    static final String DB_URL = "jdbc:mysql://localhost:3306/jgproject?&useSSL=false&serverTimezone=UTC";
     
     // ���ݿ���û��������룬��Ҫ�����Լ�������
     static final String USER = "root";
     static final String PASS = "95279426txy%";
-    String sqlStr = "select ID,pName,Department from person";
+    String sqlStr = "select AdminUser,AdminPass from admini";
     String sqlInsert = "insert into person " +"VALUES (79, 'Mike', 'R&D')";
     String sqlUpdate = "update person " +"set Department = 'QA' where ID in (1,3)";
     /**
@@ -60,8 +60,8 @@ public class DatabaseAccess extends HttpServlet{
 //            System.out.println("插入");
             
             //��������
-            st.executeUpdate(sqlUpdate);
-            System.out.println("更新");
+//            st.executeUpdate(sqlUpdate);
+//            System.out.println("更新");
 
             //��ѯ����
             ResultSet rs = st.executeQuery( sqlStr );
@@ -71,14 +71,14 @@ public class DatabaseAccess extends HttpServlet{
            
             while(rs.next()){
                 // ͨ���ֶμ���
-                int id  = rs.getInt("ID");
-                String pname = rs.getString("pName");
-                String dept = rs.getString("Department");
+//                int AdminPass  = rs.getInt("AdminUser");
+                String AdminPass = rs.getString("AdminPass");
+                String AdminUser = rs.getString("AdminUser");
     
                 // �������
-                out.println("ID: " + id);
-                out.println(", name: " + pname);
-                out.println(", department: " +dept );
+                out.println("name: " + AdminUser);
+                out.println(", pwd: " + AdminPass);
+//                out.println(", department: " +dept );
                 out.println("<br />");
             }
             out.println("</body></html>");
