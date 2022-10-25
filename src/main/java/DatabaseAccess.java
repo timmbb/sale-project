@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/DatabaseAccess")
 public class DatabaseAccess extends HttpServlet{
 
-	 // JDBC �����������ݿ� URL
+	 // JDBC URL
     static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
     static final String DB_URL = "jdbc:mysql://localhost:3306/jgproject?&useSSL=false&serverTimezone=UTC";
     
@@ -37,7 +37,7 @@ public class DatabaseAccess extends HttpServlet{
         // ������Ӧ��������
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        String title = "Servlet MySQL Connection";
+        String title = "Welcome ";
         String docType = "<!DOCTYPE html>\n";
         out.println(docType +
         "<html>\n" +
@@ -46,7 +46,7 @@ public class DatabaseAccess extends HttpServlet{
         "<h1 align=\"center\">" + title + "</h1>\n");
         try{
         	Class.forName("com.mysql.cj.jdbc.Driver");
-            System.out.println( "打开数据库!" );
+//            System.out.println( "打开数据库!" );
 
             Connection con = DriverManager.getConnection(DB_URL, USER,PASS );
 
