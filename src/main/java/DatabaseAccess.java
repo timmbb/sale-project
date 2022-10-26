@@ -43,7 +43,8 @@ public class DatabaseAccess extends HttpServlet{
         "<html>\n" +
         "<head><title>" + title + "</title></head>\n" +
         "<body bgcolor=\"#f0f0f0\">\n" +
-        "<h1 align=\"center\">" + title + "</h1>\n");
+        "<h1 align=\"center\">" + title + "</h1>\n"
+        );
         try{
         	Class.forName("com.mysql.cj.jdbc.Driver");
 //            System.out.println( "打开数据库!" );
