@@ -1,79 +1,72 @@
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.Statement;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+public class InterFace extends Database {
+    private String username;	//��¼�û���
+    private String passwd;		//��¼����
+    private boolean isadmini;	//�Ƿ����Ա��¼
+    private long userid=0;		//�û�ID��
+    public InterFace() throws Exception{
+        super();
+        username = "";
+        passwd = "";
+        isadmini = false;
+    }
+    public String getUsername() {
+        return username;
+    }
+    public void setUsername(String newusername) {
+        username = newusername;
+    }
+    public String getPasswd() {
+        return passwd;
+    }
+    public void setPasswd(String newpasswd) {
+        passwd = newpasswd;
+    }
+    public boolean getIsadmini() {
+        return isadmini;
+    }
+    public void setIsadmini(boolean newIsadmini) {
+        isadmini = newIsadmini;
+    }
+    public long getUserid() {
+        return userid;
+    }
+    public void setUserid (long uid) {
+        userid = uid;
+    }
 
-public class InterFace extends HttpServlet{
-    /**
-     * @param request servlet request
-     * @param response servlet response
-     * @throws Exception
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws Exception{
-        response.setContentType("text/html;charset=UTF-8");
-        String mesg = "";
-        PrintWriter out = response.getWriter();
-        if(
-                request.getParameter("username")!=null && !request.getParameter("username").equals("")){
-            String username =request.getParameter("username");
-            String passwd = request.getParameter("passwd");
-            HttpSession session=request.getSession(true);
-            username = new String(username.getBytes("ISO8859-1"));
-            passwd = new String(passwd.getBytes("ISO8859-1"));
-            loginManage login = new loginManage ();
-            login.setUsername(username);
-            login.setPasswd(passwd);
-            System.out.println(username+passwd);
-            if (login.excute()){
-                session.setAttribute("username",username);
-                String userid = Long.toString(login.getUserid());
-                session.setAttribute("userid",userid);
-                response.sendRedirect("bookshop/booklist.jsp");
-            }else {
-                mesg = "�˺Ż��������"	;
+    public String getSql() {
+        if (isadmini) {
+            sqlStr = "select * from admini where AdminUser = '" +
+                    username + "' and adminpass = '" +
+                    passwd + "'";
+        }else {
+            sqlStr = "select * from salesman where UserName = '" +
+                    username + "' and password = '" + passwd + "'";
+        }
+        return sqlStr;
+    }
+
+    public boolean excute() throws Exception
+    {
+
+        boolean flag = false;
+        Database db = new Database();
+        Connection conn=db.connect();
+        Statement stmt = conn.createStatement();
+        rs = stmt.executeQuery(getSql());
+        if (rs.next()){
+            if (!isadmini)
+            {
+                userid = rs.getLong("id");
             }
+            flag = true;
         }
-        if (!mesg.equals("")){
-            out.println("<p ><font color=#ff0000>" + mesg +"</font></p>");}
-    }
-
-    /**
-     * @param request servlet request
-     * @param response servlet response
-     */
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * @param request servlet request
-     * @param response servlet response
-     */
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     */
-    public String getServletInfo(){
-        return "Short description";
+        rs.close();
+        return flag;
     }
 
 }
+
