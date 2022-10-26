@@ -1,4 +1,5 @@
 import java.sql.*;
+
 public class Database {
     public Connection conn;
     public Statement stmt;
