@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../css/css_adminlogin.css">
+</head>
+<script>
+    function checkform() {
+        if (document.form1.username.value=="" || document.form1.passwd.value==""){
+            alert("用户名或密码为空！");
+            return false;
+        }
+        return true;
+    }
+</script>
+<body>
+<div class="post3">
+    <div align=center>
+        <h1>公司销售内部管理</h1>
+        <h3>登录页面</h3>
+    </div>
+    <br>
+    <div class="post"><br></div>
+    <form name="form1" method="post" action=admin_login>
+        <table width="200" border="0" cellspacing="1" cellpadding="1"
+               align="center">
+            <tr>
+                <td width="147" align="right">
+                    管理员：
+                    <br>
+                </td>
+                <td width="246" valign="top">
+                    <input type="text" name="username" size="16" maxlength="25">
+                </td>
+            </tr>
+            <tr>
+                <td width="147" align="right">
+                    密&nbsp;码：
+                </td>
+                <td width="246" valign="top">
+                    <input type="password" name="passwd" maxlength="20" size="16">
+                </td>
+            </tr>
+            <tr>
+                <td width="147" align="right">
+                    &nbsp;
+                </td>
+                <td width="246" valign="top">
+                    <input type="submit" name="Submit" value="登录"
+                           onclick="javascript:return(checkform());">
+                    <a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                    <input type="reset" name="Submit2" value="取消">
+                </td>
+            </tr>
+        </table>
+    </form>
+    <div class="post1"><A HREF="index.jsp">返回首页</A></div>
+    <div class="post2"><br></div>
+</div>
+</body>
+</html>
